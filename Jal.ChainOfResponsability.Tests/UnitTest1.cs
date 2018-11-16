@@ -19,7 +19,7 @@ namespace Jal.ChainOfResponsability.Tests
             var container = new ServiceContainer();
             container.RegisterFrom<ServiceLocatorCompositionRoot>();
             container.RegisterFrom<ChainOfResponsabilityCompositionRoot>();
-            container.Register<IMiddleware<Data>, MiddlewareB>(new PerContainerLifetime());
+            container.Register<IMiddleware<Data>, MiddlewareB>(typeof(MiddlewareB).FullName, new PerContainerLifetime());
             IPipelineBuilder pipeline = container.GetInstance<IPipelineBuilder>();
             var data = new Data();
             pipeline.For<Data>().Use((c, next) => {
@@ -33,14 +33,20 @@ namespace Jal.ChainOfResponsability.Tests
             var container = new ServiceContainer();
             container.RegisterFrom<ServiceLocatorCompositionRoot>();
             container.RegisterFrom<ChainOfResponsabilityCompositionRoot>();
-            container.Register<IMiddlewareAsync<Data>, MiddlewareD>(new PerContainerLifetime());
+            container.Register<IMiddlewareAsync<Data>, MiddlewareD>(typeof(MiddlewareD).FullName, new PerContainerLifetime());
+            container.Register<IMiddlewareAsync<Data>, MiddlewareC>(typeof(MiddlewareC).FullName, new PerContainerLifetime());
             IPipelineBuilder pipeline = container.GetInstance<IPipelineBuilder>();
             var data = new Data();
-            await pipeline.ForAsync<Data>().UseAsync(async (c, next)=> {
-                await next(c);
-            }).UseAsync<MiddlewareD>().RunAsync(data);
-
-            
+            var p= pipeline.ForAsync<Data>().UseAsync(async (c, next)=> {
+                Console.WriteLine("a");
+                var x= next(c);
+                Console.WriteLine("b");
+                await x;
+                Console.WriteLine("c");
+            }).UseAsync<MiddlewareD>().UseAsync<MiddlewareC>().RunAsync(data);
+            Console.WriteLine("d");
+            await p;
+            Console.WriteLine("f");
         }
     }
 
@@ -69,7 +75,9 @@ namespace Jal.ChainOfResponsability.Tests
     {
         public async Task ExecuteAsync(Context<Data> context, Func<Context<Data>, Task> next)
         {
-            await Task.FromResult<int>(0);
+            Console.WriteLine("1");
+            await Task.Delay(5000);
+            Console.WriteLine("2");
         }
     }
 
@@ -77,7 +85,11 @@ namespace Jal.ChainOfResponsability.Tests
     {
         public async Task ExecuteAsync(Context<Data> context, Func<Context<Data>, Task> next)
         {
-            await Task.FromResult<int>(0);
+            Console.WriteLine("aa");
+            var x = next(context);
+            Console.WriteLine("bb");
+            await x;
+            Console.WriteLine("cc");
         }
     }
 }

@@ -38,7 +38,7 @@ namespace Jal.ChainOfResponsability.Impl
 
         private Func<Context<T>, Task> GetNextAsync<T>()
         {
-            return (c) =>
+            return c=>
             {
                 if (c.Index < c.Middlewaremetadata.Length)
                 {
@@ -47,17 +47,18 @@ namespace Jal.ChainOfResponsability.Impl
                     if (metadata.IsStronglyTyped())
                     {
                         var middleware = _factory.Create<IMiddlewareAsync<T>>(metadata.StronglyTypedMiddleware);
-                        
+
                         return middleware.ExecuteAsync(c, GetNextAsync<T>());
                     }
                     else
                     {
                         return metadata.AsyncMiddleware(c, GetNextAsync<T>());
                     }
-                   
                 }
-
-                throw new Exception("There is no more middlewares to execute");
+                else
+                {
+                    throw new Exception("There is no more middlewares to execute");
+                }
             };
          }
 
@@ -80,8 +81,10 @@ namespace Jal.ChainOfResponsability.Impl
                         metadata.Middleware(c, GetNext<T>());
                     }   
                 }
-
-                throw new Exception("There is no more middlewares to execute");
+                else
+                {
+                    throw new Exception("There is no more middlewares to execute");
+                }
             };
         }
     }

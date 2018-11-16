@@ -1,7 +1,21 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Raul Naupari</Authors>
+    <Company>Raul NaupariRaul Naupari</Company>
+    <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/raulnq/Jal.ChainOfResponsability</PackageProjectUrl>
+    <Description>Castle Windsor installer for the Jal.ChainOfResponsability library</Description>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Castle.Windsor" Version="4.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Jal.ChainOfResponsability\Jal.ChainOfResponsability.csproj" />
+  </ItemGroup>
 
 </Project>
