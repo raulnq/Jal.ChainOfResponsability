@@ -9,6 +9,8 @@ namespace Jal.ChainOfResponsability.Fluent.Interfaces
     {
         IPipelineRunBuilderAsync<TData> UseAsync<TMiddleware>() where TMiddleware : IMiddlewareAsync<TData>;
 
+        IPipelineRunBuilderAsync<TData> UseAsync(Type middlewaretype);
+
         IPipelineRunBuilderAsync<TData> UseAsync(Func<Context<TData>, Func<Context<TData>, Task>, Task> middleware);
     }
 

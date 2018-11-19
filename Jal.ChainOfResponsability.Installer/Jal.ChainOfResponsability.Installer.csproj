@@ -8,6 +8,7 @@
     <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/raulnq/Jal.ChainOfResponsability</PackageProjectUrl>
     <Description>Castle Windsor installer for the Jal.ChainOfResponsability library</Description>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

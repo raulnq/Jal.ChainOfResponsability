@@ -64,6 +64,13 @@ namespace Jal.ChainOfResponsability.Fluent.Impl
             return this;
         }
 
+        public IPipelineRunBuilder<TData> Use(Type middlewaretype)
+        {
+            _metadata.Add(new MiddlewareMetadata<TData>() { StronglyTypedMiddleware = middlewaretype });
+
+            return this;
+        }
+
         public IPipelineRunBuilderAsync<TData> UseAsync(Func<Context<TData>, Func<Context<TData>, Task>, Task> middleware)
         {
             _metadata.Add(new MiddlewareMetadata<TData>() { AsyncMiddleware = middleware });
@@ -74,6 +81,13 @@ namespace Jal.ChainOfResponsability.Fluent.Impl
         public IPipelineRunBuilderAsync<TData> UseAsync<TMiddleware>() where TMiddleware : IMiddlewareAsync<TData>
         {
             _metadata.Add(new MiddlewareMetadata<TData>() { StronglyTypedMiddleware = typeof(TMiddleware) });
+
+            return this;
+        }
+
+        public IPipelineRunBuilderAsync<TData> UseAsync(Type middlewaretype)
+        {
+            _metadata.Add(new MiddlewareMetadata<TData>() { StronglyTypedMiddleware = middlewaretype });
 
             return this;
         }
