@@ -24,7 +24,7 @@ namespace Jal.ChainOfResponsability.Impl
             GetNext<T>().Invoke(context);
         }
 
-        public async Task ExecuteAsync<T>(MiddlewareMetadata<T>[] middlewaremetadata, T data)
+        public Task ExecuteAsync<T>(MiddlewareMetadata<T>[] middlewaremetadata, T data)
         {
             var context = new Context<T>()
             {
@@ -33,7 +33,7 @@ namespace Jal.ChainOfResponsability.Impl
                 Data = data
             };
 
-            await GetNextAsync<T>().Invoke(context);
+            return GetNextAsync<T>().Invoke(context);
         }
 
         private Func<Context<T>, Task> GetNextAsync<T>()
