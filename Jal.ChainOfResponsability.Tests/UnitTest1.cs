@@ -34,7 +34,7 @@ namespace Jal.ChainOfResponsability.Tests
             container.RegisterFrom<ServiceLocatorCompositionRoot>();
             container.RegisterFrom<ChainOfResponsabilityCompositionRoot>();
             container.Register<IMiddlewareAsync<Data>, MiddlewareD>(typeof(MiddlewareD).FullName, new PerContainerLifetime());
-            container.Register<IMiddlewareAsync<Data>, MiddlewareC>(typeof(MiddlewareC).FullName, new PerContainerLifetime());
+            container.Register<IMiddlewareAsync<Data>, MiddlewareC>("Test", new PerContainerLifetime());
             IPipelineBuilder pipeline = container.GetInstance<IPipelineBuilder>();
             var data = new Data();
             var p= pipeline.ForAsync<Data>().UseAsync(async (c, next)=> {
@@ -43,7 +43,7 @@ namespace Jal.ChainOfResponsability.Tests
                 Console.WriteLine("b");
                 await x;
                 Console.WriteLine("c");
-            }).UseAsync<MiddlewareD>().UseAsync<MiddlewareC>().RunAsync(data);
+            }).UseAsync<MiddlewareD>().UseAsync<MiddlewareC>("Test").RunAsync(data);
             Console.WriteLine("d");
             await p;
             Console.WriteLine("f");

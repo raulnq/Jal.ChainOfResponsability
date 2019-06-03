@@ -6,6 +6,8 @@ namespace Jal.ChainOfResponsability.Model
     public class MiddlewareMetadata
     {
         public Type StronglyTypedMiddleware { get; set; }
+
+        public string Name { get; set; }
     }
 
     public class MiddlewareMetadata<T> : MiddlewareMetadata
@@ -19,6 +21,15 @@ namespace Jal.ChainOfResponsability.Model
         public bool IsStronglyTyped()
         {
             if (StronglyTypedMiddleware != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool IsNamed()
+        {
+            if (!string.IsNullOrWhiteSpace(Name))
             {
                 return true;
             }

@@ -46,7 +46,16 @@ namespace Jal.ChainOfResponsability.Impl
                     c.Index++;
                     if (metadata.IsStronglyTyped())
                     {
-                        var middleware = _factory.Create<IMiddlewareAsync<T>>(metadata.StronglyTypedMiddleware);
+                        var middleware = default(IMiddlewareAsync<T>);
+
+                        if (metadata.IsNamed())
+                        {
+                            middleware = _factory.Create<IMiddlewareAsync<T>>(metadata.Name);
+                        }
+                        else
+                        {
+                            middleware = _factory.Create<IMiddlewareAsync<T>>(metadata.StronglyTypedMiddleware);
+                        }
 
                         return middleware.ExecuteAsync(c, GetNextAsync<T>());
                     }
@@ -70,9 +79,20 @@ namespace Jal.ChainOfResponsability.Impl
                 {
                     var metadata = c.Middlewaremetadata[c.Index];
                     c.Index++;
+
                     if (metadata.IsStronglyTyped())
                     {
-                        var middleware = _factory.Create<IMiddleware<T>>(metadata.StronglyTypedMiddleware);
+
+                        var middleware = default(IMiddleware<T>);
+
+                        if(metadata.IsNamed())
+                        {
+                            middleware = _factory.Create<IMiddleware<T>>(metadata.Name);
+                        }
+                        else
+                        {
+                            middleware = _factory.Create<IMiddleware<T>>(metadata.StronglyTypedMiddleware);
+                        }
 
                         middleware.Execute(c, GetNext<T>());
                     }

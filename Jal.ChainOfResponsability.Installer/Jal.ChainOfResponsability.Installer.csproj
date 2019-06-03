@@ -4,11 +4,11 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Raul Naupari</Authors>
-    <Company>Raul NaupariRaul Naupari</Company>
+    <Company>Raul Naupari</Company>
     <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/raulnq/Jal.ChainOfResponsability</PackageProjectUrl>
     <Description>Castle Windsor installer for the Jal.ChainOfResponsability library</Description>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
   </PropertyGroup>
 
   <ItemGroup>
