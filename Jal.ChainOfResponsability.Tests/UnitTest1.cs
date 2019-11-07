@@ -7,6 +7,9 @@ using Jal.Locator.LightInject.Installer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LightInject;
 using Jal.ChainOfResponsability.LightInject.Installer;
+using Microsoft.Extensions.DependencyInjection;
+using Jal.ChainOfResponsability.Microsoft.Extensions.DependencyInjection;
+using Jal.Locator.Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Jal.ChainOfResponsability.Tests
 {
@@ -15,6 +18,27 @@ namespace Jal.ChainOfResponsability.Tests
     {
         [TestMethod]
         public void TestMethod1()
+        {
+            var container = new ServiceCollection();
+
+            var namedservicecollection = container.AddServiceLocator();
+
+            container.AddChainOfResponsability();
+
+            namedservicecollection.AddSingleton<IMiddleware<Data>, MiddlewareB>(typeof(MiddlewareB).FullName);
+
+            var provider = container.BuildServiceProvider();
+
+            IPipelineBuilder pipeline = provider.GetService<IPipelineBuilder>(); 
+            var data = new Data();
+            pipeline.For<Data>().Use((c, next) => {
+                next(c);
+            }).Use<MiddlewareB>().Run(data);
+        }
+
+            
+        [TestMethod]
+        public void TestMethod3()
         {
             var container = new ServiceContainer();
             container.RegisterFrom<ServiceLocatorCompositionRoot>();

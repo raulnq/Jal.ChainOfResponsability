@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
@@ -11,9 +11,11 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.2.1" />
     <PackageReference Include="MSTest.TestFramework" Version="1.2.1" />
+    <PackageReference Include="Jal.Locator.Microsoft.Extensions.DependencyInjection" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Jal.ChainOfResponsability.Microsoft.Extensions.DependencyInjection\Jal.ChainOfResponsability.Microsoft.Extensions.DependencyInjection.csproj" />
     <ProjectReference Include="..\Jal.ChainOfResponsability\Jal.ChainOfResponsability.csproj" />
     <ProjectReference Include="..\Jal.ChainOfResponsability.LightInject.Installer\Jal.ChainOfResponsability.LightInject.Installer.csproj" />
   </ItemGroup>
