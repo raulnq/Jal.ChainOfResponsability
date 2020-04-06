@@ -2,15 +2,15 @@
 Just another library to implement the chain of responsability pattern
 
 ## How to use?
-Define your model
-```c++
+Define your model.
+```csharp
 public class Data
 {
     
 }
 ```
-Define your middlewares
-```c++
+Define your middlewares.
+```csharp
 public class AsyncMiddlewareA : IAsyncMiddleware<Data>
 {
     public async Task ExecuteAsync(Context<Data> context, Func<Context<Data>, Task> next)
@@ -26,21 +26,23 @@ public class AsyncMiddlewareB : IAsyncMiddleware<Data>
     }
 }
 ```
-Setup and run the chain 
-```c++
+Setup and run the chain.
+```csharp
 var data = new Data();
 
-await pipeline.ForAsync<Data>()
+await pipeline
+.ForAsync<Data>()
 .UseAsync<AsyncMiddlewareA>()
 .UseAsync<AsyncMiddlewareB>()
 .RunAsync(data);
 ```
+## IPipelineBuilder interface building
 
 ### Castle Windsor [![NuGet](https://img.shields.io/nuget/v/Jal.ChainOfResponsability.Installer.svg)](https://www.nuget.org/packages/Jal.ChainOfResponsability.Installer)
 
 The [Jal.Locator.CastleWindsor](https://www.nuget.org/packages/Jal.Locator.CastleWindsor/) library is needed.
 
-```c++
+```csharp
 var container = new WindsorContainer();
 
 container.Kernel.Resolver.AddSubResolver(new CollectionResolver(container.Kernel));
@@ -59,7 +61,7 @@ var pipeline = container.Resolve<IPipelineBuilder>();
 
 The [Jal.Locator.LightInject](https://www.nuget.org/packages/Jal.Locator.LightInject/) library is needed. 
 
-```c++
+```csharp
 var container = new ServiceContainer();
 
 container.RegisterFrom<ServiceLocatorCompositionRoot>();
@@ -77,7 +79,7 @@ var pipeline = container.GetInstance<IPipelineBuilder>();
 
 The [Jal.Locator.Microsoft.Extensions.DependencyInjection](https://www.nuget.org/packages/Jal.Locator.Microsoft.Extensions.DependencyInjection/) library is needed. 
 
-```c++
+```csharp
 var container = new ServiceCollection();
 
 container.AddServiceLocator();
