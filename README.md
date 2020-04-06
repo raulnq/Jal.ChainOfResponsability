@@ -1,4 +1,4 @@
-# Jal.ChainOfResponsability
+# Jal.ChainOfResponsability [![NuGet](https://img.shields.io/nuget/v/Jal.Factory.svg)](https://www.nuget.org/packages/Jal.Factory) 
 Just another library to implement the chain of responsability pattern
 
 ## How to use?
@@ -49,11 +49,12 @@ container.Kernel.Resolver.AddSubResolver(new CollectionResolver(container.Kernel
 
 container.Install(new ServiceLocatorInstaller());
 
-container.Install(new ChainOfResponsabilityInstaller());
+container.Install(new ChainOfResponsabilityInstaller(c =>
+{
+    c.RegisterAsyncMiddlewareForChain<AsyncMiddlewareA, Data>();
 
-container.RegisterAsyncMiddlewareForChain<AsyncMiddlewareA, Data>();
-
-container.RegisterAsyncMiddlewareForChain<AsyncMiddlewareB, Data>();
+    c.RegisterAsyncMiddlewareForChain<AsyncMiddlewareB, Data>();
+}));
 
 var pipeline = container.Resolve<IPipelineBuilder>();
 ``` 
@@ -66,11 +67,12 @@ var container = new ServiceContainer();
 
 container.RegisterFrom<ServiceLocatorCompositionRoot>();
 
-container.RegisterFrom<ChainOfResponsabilityCompositionRoot>();
+container.RegisterChainOfResponsability(c=>
+{
+    c.RegisterMiddlewareForChain<MiddlewareA, Data>();
 
-container.RegisterAsyncMiddlewareForChain<AsyncMiddlewareA, Data>();
-
-container.RegisterAsyncMiddlewareForChain<AsyncMiddlewareB, Data>();
+    c.RegisterMiddlewareForChain<MiddlewareB, Data>();
+});
 
 var pipeline = container.GetInstance<IPipelineBuilder>();
 ``` 
@@ -84,11 +86,12 @@ var container = new ServiceCollection();
 
 container.AddServiceLocator();
 
-container.AddChainOfResponsability();
+container.AddChainOfResponsability(c=>
+{
+    c.AddAsyncMiddlewareForChain<AsyncMiddlewareA, Data>();
 
-container.AddAsyncMiddlewareForChain<AsyncMiddlewareA, Data>();
-
-container.AddAsyncMiddlewareForChain<AsyncMiddlewareB, Data>();
+    c.AddAsyncMiddlewareForChain<AsyncMiddlewareB, Data>();
+});
 
 var provider = container.BuildServiceProvider();
 

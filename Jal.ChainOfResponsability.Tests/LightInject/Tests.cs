@@ -19,13 +19,16 @@ namespace Jal.ChainOfResponsability.Tests.LightInject
 
             container.RegisterFrom<ServiceLocatorCompositionRoot>();
 
-            container.RegisterFrom<ChainOfResponsabilityCompositionRoot>();
+            container.RegisterChainOfResponsability(c=>
+            {
+                c.RegisterMiddlewareForChain<MiddlewareA, Data>();
 
-            container.RegisterMiddlewareForChain<MiddlewareA, Data>();
+                c.RegisterMiddlewareForChain<MiddlewareB, Data>();
 
-            container.RegisterMiddlewareForChain<MiddlewareB, Data>();
+                c.RegisterMiddlewareForChain<MiddlewareC, Data>();
+            });
 
-            container.RegisterMiddlewareForChain<MiddlewareC, Data>();
+
 
             IPipelineBuilder pipeline = container.GetInstance<IPipelineBuilder>();
 
@@ -39,7 +42,7 @@ namespace Jal.ChainOfResponsability.Tests.LightInject
 
             container.RegisterFrom<ServiceLocatorCompositionRoot>();
 
-            container.RegisterFrom<ChainOfResponsabilityCompositionRoot>();
+            container.RegisterChainOfResponsability();
 
             IPipelineBuilder pipeline = container.GetInstance<IPipelineBuilder>();
 
@@ -53,13 +56,14 @@ namespace Jal.ChainOfResponsability.Tests.LightInject
 
             container.RegisterFrom<ServiceLocatorCompositionRoot>();
 
-            container.RegisterFrom<ChainOfResponsabilityCompositionRoot>();
+            container.RegisterChainOfResponsability(c =>
+            {
+                c.RegisterAsyncMiddlewareForChain<AsyncMiddlewareA, Data>();
 
-            container.RegisterAsyncMiddlewareForChain<AsyncMiddlewareA, Data>();
+                c.RegisterAsyncMiddlewareForChain<AsyncMiddlewareB, Data>();
 
-            container.RegisterAsyncMiddlewareForChain<AsyncMiddlewareB, Data>();
-
-            container.RegisterAsyncMiddlewareForChain<AsyncMiddlewareC, Data>();
+                c.RegisterAsyncMiddlewareForChain<AsyncMiddlewareC, Data>();
+            });
 
             IPipelineBuilder pipeline = container.GetInstance<IPipelineBuilder>();
 
@@ -73,7 +77,7 @@ namespace Jal.ChainOfResponsability.Tests.LightInject
 
             container.RegisterFrom<ServiceLocatorCompositionRoot>();
 
-            container.RegisterFrom<ChainOfResponsabilityCompositionRoot>();
+            container.RegisterChainOfResponsability();
 
             IPipelineBuilder pipeline = container.GetInstance<IPipelineBuilder>();
 

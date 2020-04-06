@@ -1,4 +1,5 @@
 ﻿using LightInject;
+using System;
 
 namespace Jal.ChainOfResponsability.LightInject.Installer
 {
@@ -12,6 +13,20 @@ namespace Jal.ChainOfResponsability.LightInject.Installer
         public static void RegisterAsyncMiddlewareForChain<TImplementation, TData>(this IServiceContainer container) where TImplementation : IAsyncMiddleware<TData>
         {
             container.Register<IAsyncMiddleware<TData>, TImplementation>(typeof(TImplementation).FullName, new PerContainerLifetime());
+        }
+
+        public static void RegisterChainOfResponsability(this IServiceContainer container, Action<IServiceContainer> action = null)
+        {
+            container.Register<IPipeline, Pipeline>(new PerContainerLifetime());
+
+            container.Register<IPipelineBuilder, PipelineBuilder>(new PerContainerLifetime());
+
+            container.Register<IMiddlewareFactory, MiddlewareFactory>(new PerContainerLifetime());
+
+            if (action != null)
+            {
+                action(container);
+            }
         }
     }
 }

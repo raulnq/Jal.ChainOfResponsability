@@ -18,13 +18,14 @@ namespace Jal.ChainOfResponsability.Tests.Microsoft.Extensions.DependencyInjecti
 
             container.AddServiceLocator();
 
-            container.AddChainOfResponsability();
+            container.AddChainOfResponsability(c=>
+            {
+                c.AddMiddlewareForChain<MiddlewareA, Data>();
 
-            container.AddMiddlewareForChain<MiddlewareA, Data>();
+                c.AddMiddlewareForChain<MiddlewareB, Data>();
 
-            container.AddMiddlewareForChain<MiddlewareB, Data>();
-
-            container.AddMiddlewareForChain<MiddlewareC, Data>();
+                c.AddMiddlewareForChain<MiddlewareC, Data>();
+            });
 
             var provider = container.BuildServiceProvider();
 
@@ -56,13 +57,14 @@ namespace Jal.ChainOfResponsability.Tests.Microsoft.Extensions.DependencyInjecti
 
             container.AddServiceLocator();
 
-            container.AddChainOfResponsability();
+            container.AddChainOfResponsability(c=>
+            {
+                c.AddAsyncMiddlewareForChain<AsyncMiddlewareA, Data>();
 
-            container.AddAsyncMiddlewareForChain<AsyncMiddlewareA, Data>();
+                c.AddAsyncMiddlewareForChain<AsyncMiddlewareB, Data>();
 
-            container.AddAsyncMiddlewareForChain<AsyncMiddlewareB, Data>();
-
-            container.AddAsyncMiddlewareForChain<AsyncMiddlewareC, Data>();
+                c.AddAsyncMiddlewareForChain<AsyncMiddlewareC, Data>();
+            });
 
             var provider = container.BuildServiceProvider();
 

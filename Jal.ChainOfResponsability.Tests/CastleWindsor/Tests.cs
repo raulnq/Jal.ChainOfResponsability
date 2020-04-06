@@ -23,13 +23,14 @@ namespace Jal.ChainOfResponsability.Tests.CastleWindsor
 
             container.Install(new ServiceLocatorInstaller());
 
-            container.Install(new ChainOfResponsabilityInstaller());
+            container.Install(new ChainOfResponsabilityInstaller(c=>
+            {
+                c.RegisterMiddlewareForChain<MiddlewareA, Data>();
 
-            container.RegisterMiddlewareForChain<MiddlewareA, Data>();
+                c.RegisterMiddlewareForChain<MiddlewareB, Data>();
 
-            container.RegisterMiddlewareForChain<MiddlewareB, Data>();
-
-            container.RegisterMiddlewareForChain<MiddlewareC, Data>();
+                c.RegisterMiddlewareForChain<MiddlewareC, Data>();
+            }));
 
             IPipelineBuilder pipeline = container.Resolve<IPipelineBuilder>();
 
@@ -61,13 +62,14 @@ namespace Jal.ChainOfResponsability.Tests.CastleWindsor
 
             container.Install(new ServiceLocatorInstaller());
 
-            container.Install(new ChainOfResponsabilityInstaller());
+            container.Install(new ChainOfResponsabilityInstaller(c =>
+            {
+                c.RegisterAsyncMiddlewareForChain<AsyncMiddlewareA, Data>();
 
-            container.RegisterAsyncMiddlewareForChain<AsyncMiddlewareA, Data>();
+                c.RegisterAsyncMiddlewareForChain<AsyncMiddlewareB, Data>();
 
-            container.RegisterAsyncMiddlewareForChain<AsyncMiddlewareB, Data>();
-
-            container.RegisterAsyncMiddlewareForChain<AsyncMiddlewareC, Data>();
+                c.RegisterAsyncMiddlewareForChain<AsyncMiddlewareC, Data>();
+            }));
 
             IPipelineBuilder pipeline = container.Resolve<IPipelineBuilder>();
 
