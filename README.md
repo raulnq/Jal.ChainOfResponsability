@@ -49,9 +49,9 @@ container.Install(new ServiceLocatorInstaller());
 
 container.Install(new ChainOfResponsabilityInstaller());
 
-container.RegisterMiddlewareForChain<MiddlewareA, Data>();
+container.RegisterAsyncMiddlewareForChain<AsyncMiddlewareA, Data>();
 
-container.RegisterMiddlewareForChain<MiddlewareB, Data>();
+container.RegisterAsyncMiddlewareForChain<AsyncMiddlewareB, Data>();
 
 var pipeline = container.Resolve<IPipelineBuilder>();
 ``` 
@@ -66,9 +66,9 @@ container.RegisterFrom<ServiceLocatorCompositionRoot>();
 
 container.RegisterFrom<ChainOfResponsabilityCompositionRoot>();
 
-container.RegisterMiddlewareForChain<MiddlewareA, Data>();
+container.RegisterAsyncMiddlewareForChain<AsyncMiddlewareA, Data>();
 
-container.RegisterMiddlewareForChain<MiddlewareB, Data>();
+container.RegisterAsyncMiddlewareForChain<AsyncMiddlewareB, Data>();
 
 var pipeline = container.GetInstance<IPipelineBuilder>();
 ``` 
@@ -84,9 +84,9 @@ container.AddServiceLocator();
 
 container.AddChainOfResponsability();
 
-container.AddMiddlewareForChain<MiddlewareA, Data>();
+container.AddAsyncMiddlewareForChain<AsyncMiddlewareA, Data>();
 
-container.AddMiddlewareForChain<MiddlewareB, Data>();
+container.AddAsyncMiddlewareForChain<AsyncMiddlewareB, Data>();
 
 var provider = container.BuildServiceProvider();
 
