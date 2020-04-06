@@ -7,17 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Jal.Locator.LightInject" Version="1.1.2" />
+    <PackageReference Include="Jal.Locator.CastleWindsor" Version="2.0.0" />
+    <PackageReference Include="Jal.Locator.LightInject" Version="2.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.2.1" />
     <PackageReference Include="MSTest.TestFramework" Version="1.2.1" />
-    <PackageReference Include="Jal.Locator.Microsoft.Extensions.DependencyInjection" Version="1.0.0" />
+    <PackageReference Include="Shouldly" Version="3.0.2" />
+    <PackageReference Include="Jal.Locator.Microsoft.Extensions.DependencyInjection" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Jal.ChainOfResponsability.Installer\Jal.ChainOfResponsability.Installer.csproj" />
     <ProjectReference Include="..\Jal.ChainOfResponsability.Microsoft.Extensions.DependencyInjection\Jal.ChainOfResponsability.Microsoft.Extensions.DependencyInjection.csproj" />
     <ProjectReference Include="..\Jal.ChainOfResponsability\Jal.ChainOfResponsability.csproj" />
     <ProjectReference Include="..\Jal.ChainOfResponsability.LightInject.Installer\Jal.ChainOfResponsability.LightInject.Installer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
   </ItemGroup>
 
 </Project>

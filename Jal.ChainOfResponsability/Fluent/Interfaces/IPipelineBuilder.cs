@@ -1,10 +1,10 @@
-﻿namespace Jal.ChainOfResponsability.Fluent.Interfaces
+﻿namespace Jal.ChainOfResponsability
 {
     public interface IPipelineBuilder
     {
         IPipelineUseBuilder<TData> For<TData>();
 
-        IPipelineUseBuilderAsync<TData> ForAsync<TData>();
+        IAsyncPipelineUseBuilder<TData> ForAsync<TData>();
     }
 
 }

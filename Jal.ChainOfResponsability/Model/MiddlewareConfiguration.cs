@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Jal.ChainOfResponsability.Model
+namespace Jal.ChainOfResponsability
 {
-    public class MiddlewareMetadata
+    public class MiddlewareConfiguration
     {
         public Type StronglyTypedMiddleware { get; set; }
-
-        public string Name { get; set; }
     }
 
-    public class MiddlewareMetadata<T> : MiddlewareMetadata
+    public class MiddlewareConfiguration<T> : MiddlewareConfiguration
     {
         public Func<Context<T>, bool> When { get; set; }
 
@@ -21,15 +19,6 @@ namespace Jal.ChainOfResponsability.Model
         public bool IsStronglyTyped()
         {
             if (StronglyTypedMiddleware != null)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public bool IsNamed()
-        {
-            if (!string.IsNullOrWhiteSpace(Name))
             {
                 return true;
             }

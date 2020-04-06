@@ -1,4 +1,4 @@
-﻿namespace Jal.ChainOfResponsability.Fluent.Interfaces
+﻿namespace Jal.ChainOfResponsability
 {
     public interface IPipelineRunBuilder<TData> : IPipelineUseBuilder<TData>
     {

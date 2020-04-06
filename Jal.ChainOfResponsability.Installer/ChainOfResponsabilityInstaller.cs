@@ -1,10 +1,6 @@
 ﻿using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using Jal.ChainOfResponsability.Fluent.Impl;
-using Jal.ChainOfResponsability.Fluent.Interfaces;
-using Jal.ChainOfResponsability.Impl;
-using Jal.ChainOfResponsability.Intefaces;
 
 namespace Jal.ChainOfResponsability.Installer
 {

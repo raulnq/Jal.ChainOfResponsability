@@ -1,8 +1,7 @@
-﻿using Jal.ChainOfResponsability.Intefaces;
-using Jal.Locator.Interface;
+﻿using Jal.Locator;
 using System;
 
-namespace Jal.ChainOfResponsability.Impl
+namespace Jal.ChainOfResponsability
 {
     public class MiddlewareFactory : IMiddlewareFactory
     {

@@ -1,9 +1,4 @@
-﻿using Jal.ChainOfResponsability.Fluent.Impl;
-using Jal.ChainOfResponsability.Fluent.Interfaces;
-using Jal.ChainOfResponsability.Impl;
-using Jal.ChainOfResponsability.Intefaces;
-using Microsoft.Extensions.DependencyInjection;
-using System;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace Jal.ChainOfResponsability.Microsoft.Extensions.DependencyInjection
 {
@@ -18,6 +13,16 @@ namespace Jal.ChainOfResponsability.Microsoft.Extensions.DependencyInjection
             servicecollection.AddSingleton<IMiddlewareFactory, MiddlewareFactory>();
 
             return servicecollection;
+        }
+
+        public static IServiceCollection AddMiddlewareForChain<TImplementation, TData>(this IServiceCollection container) where TImplementation : class, IMiddleware<TData>
+        {
+            return container.AddSingleton<IMiddleware<TData>, TImplementation>();
+        }
+
+        public static IServiceCollection AddAsyncMiddlewareForChain<TImplementation, TData>(this IServiceCollection container) where TImplementation : class, IAsyncMiddleware<TData>
+        {
+            return container.AddSingleton<IAsyncMiddleware<TData>, TImplementation>();
         }
     }
 }

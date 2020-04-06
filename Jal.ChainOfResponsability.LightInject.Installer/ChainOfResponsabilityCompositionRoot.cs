@@ -1,9 +1,4 @@
-﻿using Jal.ChainOfResponsability.Fluent.Impl;
-using Jal.ChainOfResponsability.Fluent.Interfaces;
-using Jal.ChainOfResponsability.Impl;
-using Jal.ChainOfResponsability.Intefaces;
-using LightInject;
-
+﻿using LightInject;
 
 namespace Jal.ChainOfResponsability.LightInject.Installer
 {

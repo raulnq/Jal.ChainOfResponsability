@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Jal.ChainOfResponsability.Intefaces
+namespace Jal.ChainOfResponsability
 {
     public interface IMiddlewareFactory
     {

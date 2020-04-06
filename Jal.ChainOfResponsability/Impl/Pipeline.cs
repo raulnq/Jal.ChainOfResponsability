@@ -1,9 +1,7 @@
-﻿using Jal.ChainOfResponsability.Intefaces;
-using Jal.ChainOfResponsability.Model;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 
-namespace Jal.ChainOfResponsability.Impl
+namespace Jal.ChainOfResponsability
 {
     public class Pipeline : IPipeline
     {
@@ -14,22 +12,22 @@ namespace Jal.ChainOfResponsability.Impl
             _factory = factory;
         }
 
-        public void Execute<T>(MiddlewareMetadata<T>[] middlewaremetadata, T data)
+        public void Execute<T>(MiddlewareConfiguration<T>[] middlewaremetadata, T data)
         {
             var context = new Context<T>()
             {
-                Index = 0, Middlewaremetadata = middlewaremetadata, Data = data
+                Index = 0, Configuration = middlewaremetadata, Data = data
             };
 
             GetNext<T>().Invoke(context);
         }
 
-        public Task ExecuteAsync<T>(MiddlewareMetadata<T>[] middlewaremetadata, T data)
+        public Task ExecuteAsync<T>(MiddlewareConfiguration<T>[] middlewaremetadata, T data)
         {
             var context = new Context<T>()
             {
                 Index = 0,
-                Middlewaremetadata = middlewaremetadata,
+                Configuration = middlewaremetadata,
                 Data = data
             };
 
@@ -40,22 +38,15 @@ namespace Jal.ChainOfResponsability.Impl
         {
             return c=>
             {
-                if (c.Index < c.Middlewaremetadata.Length)
+                if (c.Index < c.Configuration.Length)
                 {
-                    var metadata = c.Middlewaremetadata[c.Index];
+                    var metadata = c.Configuration[c.Index];
                     c.Index++;
                     if (metadata.IsStronglyTyped())
                     {
-                        var middleware = default(IMiddlewareAsync<T>);
+                        var middleware = default(IAsyncMiddleware<T>);
 
-                        if (metadata.IsNamed())
-                        {
-                            middleware = _factory.Create<IMiddlewareAsync<T>>(metadata.Name);
-                        }
-                        else
-                        {
-                            middleware = _factory.Create<IMiddlewareAsync<T>>(metadata.StronglyTypedMiddleware);
-                        }
+                        middleware = _factory.Create<IAsyncMiddleware<T>>(metadata.StronglyTypedMiddleware);
 
                         return middleware.ExecuteAsync(c, GetNextAsync<T>());
                     }
@@ -75,9 +66,9 @@ namespace Jal.ChainOfResponsability.Impl
         {
             return (c) =>
             {
-                if (c.Index < c.Middlewaremetadata.Length)
+                if (c.Index < c.Configuration.Length)
                 {
-                    var metadata = c.Middlewaremetadata[c.Index];
+                    var metadata = c.Configuration[c.Index];
                     c.Index++;
 
                     if (metadata.IsStronglyTyped())
@@ -85,14 +76,7 @@ namespace Jal.ChainOfResponsability.Impl
 
                         var middleware = default(IMiddleware<T>);
 
-                        if(metadata.IsNamed())
-                        {
-                            middleware = _factory.Create<IMiddleware<T>>(metadata.Name);
-                        }
-                        else
-                        {
-                            middleware = _factory.Create<IMiddleware<T>>(metadata.StronglyTypedMiddleware);
-                        }
+                        middleware = _factory.Create<IMiddleware<T>>(metadata.StronglyTypedMiddleware);
 
                         middleware.Execute(c, GetNext<T>());
                     }

@@ -1,7 +1,6 @@
-﻿using Jal.ChainOfResponsability.Model;
-using System;
+﻿using System;
 
-namespace Jal.ChainOfResponsability.Intefaces
+namespace Jal.ChainOfResponsability
 {
     public interface IMiddleware<T>
     {

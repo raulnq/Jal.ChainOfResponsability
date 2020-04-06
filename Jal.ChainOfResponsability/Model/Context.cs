@@ -1,5 +1,5 @@
-﻿namespace Jal.ChainOfResponsability.Model
-{
+﻿namespace Jal.ChainOfResponsability
+{ 
     public class Context
     {
         public int Index { get; set; }
@@ -9,6 +9,6 @@
     {
         public T Data { get; set; }
 
-        public MiddlewareMetadata<T>[] Middlewaremetadata { get; set; }
+        public MiddlewareConfiguration<T>[] Configuration { get; set; }
     }
 }

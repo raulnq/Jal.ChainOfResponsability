@@ -1,12 +1,11 @@
-﻿using Jal.ChainOfResponsability.Model;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-namespace Jal.ChainOfResponsability.Intefaces
+namespace Jal.ChainOfResponsability
 {
     public interface IPipeline
     {
-        void Execute<T>(MiddlewareMetadata<T>[] metadata, T data);
+        void Execute<T>(MiddlewareConfiguration<T>[] configuration, T data);
 
-        Task ExecuteAsync<T>(MiddlewareMetadata<T>[] metadata, T data);
+        Task ExecuteAsync<T>(MiddlewareConfiguration<T>[] configuration, T data);
     }
 }
