@@ -9,11 +9,13 @@ using Jal.ChainOfResponsability.Microsoft.Extensions.DependencyInjection;
 namespace Jal.ChainOfResponsability.Tests.Microsoft.Extensions.DependencyInjection
 {
     [TestClass]
-    public class Tests : AbstractTests
+    public class Tests
     {  
         [TestMethod]
         public void Run_WithStrongTypedMiddleware_ShouldBeExecuted()
         {
+            var tests = new TestCases();
+
             var container = new ServiceCollection();
 
             container.AddServiceLocator();
@@ -31,12 +33,14 @@ namespace Jal.ChainOfResponsability.Tests.Microsoft.Extensions.DependencyInjecti
 
             IPipelineBuilder pipeline = provider.GetService<IPipelineBuilder>();
 
-            Run_WithStrongTypedMiddleware_ShouldBeExecuted(pipeline);
+            tests.Run_WithStrongTypedMiddleware_ShouldBeExecuted(pipeline);
         }
 
         [TestMethod]
         public void Run_WithAnonymousMiddleware_ShouldBeExecuted()
         {
+            var tests = new TestCases();
+
             var container = new ServiceCollection();
 
             container.AddServiceLocator();
@@ -47,12 +51,14 @@ namespace Jal.ChainOfResponsability.Tests.Microsoft.Extensions.DependencyInjecti
 
             IPipelineBuilder pipeline = provider.GetService<IPipelineBuilder>();
 
-            Run_WithAnonymousMiddleware_ShouldBeExecuted(pipeline);
+            tests.Run_WithAnonymousMiddleware_ShouldBeExecuted(pipeline);
         }
 
         [TestMethod]
         public async Task RunAsync_WithStrongTypedMiddleware_ShouldBeExecuted()
         {
+            var tests = new TestCases();
+
             var container = new ServiceCollection();
 
             container.AddServiceLocator();
@@ -70,12 +76,14 @@ namespace Jal.ChainOfResponsability.Tests.Microsoft.Extensions.DependencyInjecti
 
             IPipelineBuilder pipeline = provider.GetService<IPipelineBuilder>();
 
-            await RunAsync_WithStrongTypedMiddleware_ShouldBeExecuted(pipeline);
+            await tests.RunAsync_WithStrongTypedMiddleware_ShouldBeExecuted(pipeline);
         }
 
         [TestMethod]
         public async Task RunAsync_WithAnonymousMiddleware_ShouldBeExecuted()
         {
+            var tests = new TestCases();
+
             var container = new ServiceCollection();
 
             container.AddServiceLocator();
@@ -86,7 +94,7 @@ namespace Jal.ChainOfResponsability.Tests.Microsoft.Extensions.DependencyInjecti
 
             IPipelineBuilder pipeline = provider.GetService<IPipelineBuilder>();
 
-            await RunAsync_WithAnonymousMiddleware_ShouldBeExecuted(pipeline);
+            await tests.RunAsync_WithAnonymousMiddleware_ShouldBeExecuted(pipeline);
         }
     }
 }

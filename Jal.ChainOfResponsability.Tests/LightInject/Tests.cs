@@ -10,78 +10,84 @@ using Jal.Locator.LightInject;
 namespace Jal.ChainOfResponsability.Tests.LightInject
 {
     [TestClass]
-    public class Tests : AbstractTests
+    public class Tests
     {  
         [TestMethod]
         public void Run_WithStrongTypedMiddleware_ShouldBeExecuted()
         {
+            var tests = new TestCases();
+
             var container = new ServiceContainer();
 
-            container.RegisterFrom<ServiceLocatorCompositionRoot>();
+            container.AddServiceLocator();
 
-            container.RegisterChainOfResponsability(c=>
+            container.AddChainOfResponsability(c=>
             {
-                c.RegisterMiddlewareForChain<MiddlewareA, Data>();
+                c.AddMiddlewareForChain<MiddlewareA, Data>();
 
-                c.RegisterMiddlewareForChain<MiddlewareB, Data>();
+                c.AddMiddlewareForChain<MiddlewareB, Data>();
 
-                c.RegisterMiddlewareForChain<MiddlewareC, Data>();
+                c.AddMiddlewareForChain<MiddlewareC, Data>();
             });
-
-
 
             IPipelineBuilder pipeline = container.GetInstance<IPipelineBuilder>();
 
-            Run_WithStrongTypedMiddleware_ShouldBeExecuted(pipeline);
+            tests.Run_WithStrongTypedMiddleware_ShouldBeExecuted(pipeline);
         }
 
         [TestMethod]
         public void Run_WithAnonymousMiddleware_ShouldBeExecuted()
         {
+            var tests = new TestCases();
+
             var container = new ServiceContainer();
 
-            container.RegisterFrom<ServiceLocatorCompositionRoot>();
+            container.AddServiceLocator();
 
-            container.RegisterChainOfResponsability();
+            container.AddChainOfResponsability();
 
             IPipelineBuilder pipeline = container.GetInstance<IPipelineBuilder>();
 
-            Run_WithAnonymousMiddleware_ShouldBeExecuted(pipeline);
+            tests.Run_WithAnonymousMiddleware_ShouldBeExecuted(pipeline);
         }
 
         [TestMethod]
         public async Task RunAsync_WithStrongTypedMiddleware_ShouldBeExecuted()
         {
+            var tests = new TestCases();
+
             var container = new ServiceContainer();
 
-            container.RegisterFrom<ServiceLocatorCompositionRoot>();
+            container.AddServiceLocator();
 
-            container.RegisterChainOfResponsability(c =>
+            container.AddChainOfResponsability(c =>
             {
-                c.RegisterAsyncMiddlewareForChain<AsyncMiddlewareA, Data>();
+                c.AddAsyncMiddlewareForChain<AsyncMiddlewareA, Data>();
 
-                c.RegisterAsyncMiddlewareForChain<AsyncMiddlewareB, Data>();
+                c.AddAsyncMiddlewareForChain<AsyncMiddlewareB, Data>();
 
-                c.RegisterAsyncMiddlewareForChain<AsyncMiddlewareC, Data>();
+                c.AddAsyncMiddlewareForChain<AsyncMiddlewareC, Data>();
             });
 
             IPipelineBuilder pipeline = container.GetInstance<IPipelineBuilder>();
 
-            await RunAsync_WithStrongTypedMiddleware_ShouldBeExecuted(pipeline);
+            await tests.RunAsync_WithStrongTypedMiddleware_ShouldBeExecuted(pipeline);
         }
 
         [TestMethod]
         public async Task RunAsync_WithAnonymousMiddleware_ShouldBeExecuted()
         {
+            var tests = new TestCases();
+
             var container = new ServiceContainer();
 
-            container.RegisterFrom<ServiceLocatorCompositionRoot>();
+            container.AddServiceLocator();
 
-            container.RegisterChainOfResponsability();
+            container.AddChainOfResponsability();
 
             IPipelineBuilder pipeline = container.GetInstance<IPipelineBuilder>();
 
-            await RunAsync_WithAnonymousMiddleware_ShouldBeExecuted(pipeline);
+            await tests.RunAsync_WithAnonymousMiddleware_ShouldBeExecuted(pipeline);
         }
     }
 }

@@ -5,9 +5,9 @@ using Shouldly;
 
 namespace Jal.ChainOfResponsability.Tests
 {
-    public class AbstractTests
+    public class TestCases
     {
-        protected void Run_WithStrongTypedMiddleware_ShouldBeExecuted(IPipelineBuilder pipeline)
+        public void Run_WithStrongTypedMiddleware_ShouldBeExecuted(IPipelineBuilder pipeline)
         {
             var data = new Data();
 
@@ -26,7 +26,7 @@ namespace Jal.ChainOfResponsability.Tests
             data.Steps[5].ShouldBe(MiddlewareA.End);
         }
 
-        protected void Run_WithAnonymousMiddleware_ShouldBeExecuted(IPipelineBuilder pipeline)
+        public void Run_WithAnonymousMiddleware_ShouldBeExecuted(IPipelineBuilder pipeline)
         {
             var data = new Data();
 
@@ -63,7 +63,7 @@ namespace Jal.ChainOfResponsability.Tests
             data.Steps[5].ShouldBe("End Anonymous A");
         }
 
-        protected async Task RunAsync_WithStrongTypedMiddleware_ShouldBeExecuted(IPipelineBuilder pipeline)
+        public async Task RunAsync_WithStrongTypedMiddleware_ShouldBeExecuted(IPipelineBuilder pipeline)
         {
             var data = new Data();
 
@@ -82,7 +82,7 @@ namespace Jal.ChainOfResponsability.Tests
             data.Steps[5].ShouldBe(AsyncMiddlewareA.End);
         }
 
-        protected async Task RunAsync_WithAnonymousMiddleware_ShouldBeExecuted(IPipelineBuilder pipeline)
+        public async Task RunAsync_WithAnonymousMiddleware_ShouldBeExecuted(IPipelineBuilder pipeline)
         {
             var data = new Data();
 

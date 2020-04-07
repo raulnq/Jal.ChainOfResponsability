@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Jal.Locator.CastleWindsor" Version="2.0.0" />
-    <PackageReference Include="Jal.Locator.LightInject" Version="2.0.0" />
+    <PackageReference Include="Jal.Locator.CastleWindsor" Version="2.1.0" />
+    <PackageReference Include="Jal.Locator.LightInject" Version="2.1.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.2.1" />
     <PackageReference Include="MSTest.TestFramework" Version="1.2.1" />

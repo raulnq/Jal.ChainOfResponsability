@@ -5,17 +5,17 @@ namespace Jal.ChainOfResponsability.LightInject.Installer
 {
     public static class ServiceContainerExtension
     {
-        public static void RegisterMiddlewareForChain<TImplementation, TData>(this IServiceContainer container) where TImplementation : IMiddleware<TData>
+        public static void AddMiddlewareForChain<TImplementation, TData>(this IServiceContainer container) where TImplementation : IMiddleware<TData>
         {
             container.Register<IMiddleware<TData>, TImplementation>(typeof(TImplementation).FullName, new PerContainerLifetime());
         }
 
-        public static void RegisterAsyncMiddlewareForChain<TImplementation, TData>(this IServiceContainer container) where TImplementation : IAsyncMiddleware<TData>
+        public static void AddAsyncMiddlewareForChain<TImplementation, TData>(this IServiceContainer container) where TImplementation : IAsyncMiddleware<TData>
         {
             container.Register<IAsyncMiddleware<TData>, TImplementation>(typeof(TImplementation).FullName, new PerContainerLifetime());
         }
 
-        public static void RegisterChainOfResponsability(this IServiceContainer container, Action<IServiceContainer> action = null)
+        public static void AddChainOfResponsability(this IServiceContainer container, Action<IServiceContainer> action = null)
         {
             container.Register<IPipeline, Pipeline>(new PerContainerLifetime());
 
