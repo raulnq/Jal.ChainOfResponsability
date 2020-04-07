@@ -8,7 +8,7 @@ namespace Jal.ChainOfResponsability.Tests.Impl
     {
         public static string Start = $"Start {typeof(AsyncMiddlewareB).Name}";
         public static string End = $"End {typeof(AsyncMiddlewareB).Name}";
-        public async Task ExecuteAsync(Context<Data> context, Func<Context<Data>, Task> next)
+        public async Task ExecuteAsync(AsyncContext<Data> context, Func<AsyncContext<Data>, Task> next)
         {
             context.Data.Steps.Add(Start);
             await next(context);

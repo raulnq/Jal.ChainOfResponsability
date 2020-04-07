@@ -4,14 +4,12 @@ using System.Threading.Tasks;
 
 namespace Jal.ChainOfResponsability.Tests.Impl
 {
-    public class AsyncMiddlewareC : IAsyncMiddleware<Data>
+    public class AsyncMiddlewareE : IAsyncMiddleware<Data>
     {
-        public static string Start = $"Start {typeof(AsyncMiddlewareC).Name}";
-        public static string End = $"End {typeof(AsyncMiddlewareC).Name}";
         public Task ExecuteAsync(AsyncContext<Data> context, Func<AsyncContext<Data>, Task> next)
         {
-            context.Data.Steps.Add(Start);
-            context.Data.Steps.Add(End);
+            context.CancellationToken.ThrowIfCancellationRequested();
+
             return Task.CompletedTask;
         }
     }

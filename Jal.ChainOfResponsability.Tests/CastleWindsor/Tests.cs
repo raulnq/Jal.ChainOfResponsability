@@ -99,5 +99,28 @@ namespace Jal.ChainOfResponsability.Tests.CastleWindsor
 
             await tests.RunAsync_WithAnonymousMiddleware_ShouldBeExecuted(pipeline);
         }
+
+        [TestMethod]
+        public async Task RunAsync_WithCancellationToken_ShouldBeThrowException()
+        {
+            var tests = new TestCases();
+
+            var container = new WindsorContainer();
+
+            container.Kernel.Resolver.AddSubResolver(new CollectionResolver(container.Kernel));
+
+            container.AddServiceLocator();
+
+            container.AddChainOfResponsability(c =>
+            {
+                c.AddAsyncMiddlewareForChain<AsyncMiddlewareD, Data>();
+
+                c.AddAsyncMiddlewareForChain<AsyncMiddlewareE, Data>();
+            });
+
+            IPipelineBuilder pipeline = container.Resolve<IPipelineBuilder>();
+
+            await tests.RunAsync_WithCancellationToken_ShouldBeThrowException(pipeline);
+        }
     }
 }

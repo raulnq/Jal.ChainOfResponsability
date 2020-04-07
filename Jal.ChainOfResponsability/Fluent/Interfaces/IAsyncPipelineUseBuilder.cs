@@ -9,7 +9,7 @@ namespace Jal.ChainOfResponsability
 
         IAsyncPipelineRunBuilder<TData> UseAsync(Type middlewaretype);
 
-        IAsyncPipelineRunBuilder<TData> UseAsync(Func<Context<TData>, Func<Context<TData>, Task>, Task> middleware);
+        IAsyncPipelineRunBuilder<TData> UseAsync(Func<AsyncContext<TData>, Func<AsyncContext<TData>, Task>, Task> middleware);
     }
 
 }

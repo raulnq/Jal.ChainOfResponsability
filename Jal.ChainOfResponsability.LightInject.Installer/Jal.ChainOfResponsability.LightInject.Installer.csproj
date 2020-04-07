@@ -6,7 +6,7 @@
     <Description>LightInject installer for the Jal.ChainOfResponsability library</Description>
     <PackageProjectUrl>https://github.com/raulnq/Jal.ChainOfResponsability</PackageProjectUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.2.0</Version>
+    <Version>3.0.0</Version>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
   </PropertyGroup>
 

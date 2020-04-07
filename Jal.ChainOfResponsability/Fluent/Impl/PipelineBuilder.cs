@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Jal.ChainOfResponsability
@@ -30,11 +31,15 @@ namespace Jal.ChainOfResponsability
 
         private List<MiddlewareConfiguration<TData>> _metadata;
 
+        private List<AsyncMiddlewareConfiguration<TData>> _asyncmetadata;
+
         public PipelineBuilder(IPipeline pipeline)
         {
             _pipeline = pipeline;
 
             _metadata = new List<MiddlewareConfiguration<TData>>();
+
+            _asyncmetadata = new List<AsyncMiddlewareConfiguration<TData>>();
         }
 
         public void Run(TData data)
@@ -42,9 +47,9 @@ namespace Jal.ChainOfResponsability
             _pipeline.Execute<TData>(_metadata.ToArray(), data);
         }
 
-        public Task RunAsync(TData data)
+        public Task RunAsync(TData data, CancellationToken token = default(CancellationToken))
         {
-            return _pipeline.ExecuteAsync<TData>(_metadata.ToArray(), data);
+            return _pipeline.ExecuteAsync<TData>(_asyncmetadata.ToArray(), data, token);
         }
 
         public IPipelineRunBuilder<TData> Use<TMiddleware>() where TMiddleware : IMiddleware<TData>
@@ -68,23 +73,23 @@ namespace Jal.ChainOfResponsability
             return this;
         }
 
-        public IAsyncPipelineRunBuilder<TData> UseAsync(Func<Context<TData>, Func<Context<TData>, Task>, Task> middleware)
+        public IAsyncPipelineRunBuilder<TData> UseAsync(Func<AsyncContext<TData>, Func<AsyncContext<TData>, Task>, Task> middleware)
         {
-            _metadata.Add(new MiddlewareConfiguration<TData>() { AsyncMiddleware = middleware });
+            _asyncmetadata.Add(new AsyncMiddlewareConfiguration<TData>() { AsyncMiddleware = middleware });
 
             return this;
         }
 
         public IAsyncPipelineRunBuilder<TData> UseAsync<TMiddleware>() where TMiddleware : IAsyncMiddleware<TData>
         {
-            _metadata.Add(new MiddlewareConfiguration<TData>() { StronglyTypedMiddleware = typeof(TMiddleware)});
+            _asyncmetadata.Add(new AsyncMiddlewareConfiguration<TData>() { StronglyTypedMiddleware = typeof(TMiddleware)});
 
             return this;
         }
 
         public IAsyncPipelineRunBuilder<TData> UseAsync(Type middlewaretype)
         {
-            _metadata.Add(new MiddlewareConfiguration<TData>() { StronglyTypedMiddleware = middlewaretype});
+            _asyncmetadata.Add(new AsyncMiddlewareConfiguration<TData>() { StronglyTypedMiddleware = middlewaretype});
 
             return this;
         }

@@ -13,14 +13,14 @@ Define your middlewares.
 ```csharp
 public class AsyncMiddlewareA : IAsyncMiddleware<Data>
 {
-    public async Task ExecuteAsync(Context<Data> context, Func<Context<Data>, Task> next)
+    public async Task ExecuteAsync(AsyncContext<Data> context, Func<AsyncContext<Data>, Task> next)
     {
         return next(context);
     }
 }
 public class AsyncMiddlewareB : IAsyncMiddleware<Data>
 {
-    public Task ExecuteAsync(Context<Data> context, Func<Context<Data>, Task> next)
+    public Task ExecuteAsync(AsyncContext<Data> context, Func<AsyncContext<Data>, Task> next)
     {
         return Task.CompletedTask;
     }

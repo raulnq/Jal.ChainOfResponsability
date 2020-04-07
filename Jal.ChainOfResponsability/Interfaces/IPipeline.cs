@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace Jal.ChainOfResponsability
 {
@@ -6,6 +7,6 @@ namespace Jal.ChainOfResponsability
     {
         void Execute<T>(MiddlewareConfiguration<T>[] configuration, T data);
 
-        Task ExecuteAsync<T>(MiddlewareConfiguration<T>[] configuration, T data);
+        Task ExecuteAsync<T>(AsyncMiddlewareConfiguration<T>[] configuration, T data, CancellationToken token=default(CancellationToken));
     }
 }

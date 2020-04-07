@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Jal.ChainOfResponsability
@@ -22,19 +23,20 @@ namespace Jal.ChainOfResponsability
             GetNext<T>().Invoke(context);
         }
 
-        public Task ExecuteAsync<T>(MiddlewareConfiguration<T>[] middlewaremetadata, T data)
+        public Task ExecuteAsync<T>(AsyncMiddlewareConfiguration<T>[] middlewaremetadata, T data, CancellationToken token = default(CancellationToken))
         {
-            var context = new Context<T>()
+            var context = new AsyncContext<T>()
             {
                 Index = 0,
                 Configuration = middlewaremetadata,
-                Data = data
+                Data = data, 
+                CancellationToken = token
             };
 
             return GetNextAsync<T>().Invoke(context);
         }
 
-        private Func<Context<T>, Task> GetNextAsync<T>()
+        private Func<AsyncContext<T>, Task> GetNextAsync<T>()
         {
             return c=>
             {

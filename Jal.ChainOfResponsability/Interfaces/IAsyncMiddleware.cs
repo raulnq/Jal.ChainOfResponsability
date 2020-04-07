@@ -5,6 +5,6 @@ namespace Jal.ChainOfResponsability
 {
     public interface IAsyncMiddleware<T>
     {
-        Task ExecuteAsync(Context<T> context, Func<Context<T>,Task> next);
+        Task ExecuteAsync(AsyncContext<T> context, Func<AsyncContext<T>,Task> next);
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Jal.ChainOfResponsability.Tests.Impl;
 using Jal.ChainOfResponsability.Tests.Model;
 using Shouldly;
@@ -118,6 +120,26 @@ namespace Jal.ChainOfResponsability.Tests
             data.Steps[4].ShouldBe("End Anonymous B");
 
             data.Steps[5].ShouldBe("End Anonymous A");
+        }
+
+        public async Task RunAsync_WithCancellationToken_ShouldBeThrowException(IPipelineBuilder pipeline)
+        {
+            var data = new Data();
+
+            using (var ds = new CancellationTokenSource(TimeSpan.FromSeconds(1)))
+            {
+                var success = false;
+                try
+                {
+                    await pipeline.ForAsync<Data>().UseAsync<AsyncMiddlewareD>().UseAsync<AsyncMiddlewareE>().RunAsync(data, ds.Token);
+                }
+                catch (Exception ex)
+                {
+                    success = true;
+                }
+
+                success.ShouldBeTrue();
+            } 
         }
     }
 }
