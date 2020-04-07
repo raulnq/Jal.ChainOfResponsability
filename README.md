@@ -47,14 +47,14 @@ var container = new WindsorContainer();
 
 container.Kernel.Resolver.AddSubResolver(new CollectionResolver(container.Kernel));
 
-container.Install(new ServiceLocatorInstaller());
+container.AddServiceLocator();
 
-container.Install(new ChainOfResponsabilityInstaller(c =>
+container.AddChainOfResponsability(c =>
 {
-    c.RegisterAsyncMiddlewareForChain<AsyncMiddlewareA, Data>();
+    c.AddAsyncMiddlewareForChain<AsyncMiddlewareA, Data>();
 
-    c.RegisterAsyncMiddlewareForChain<AsyncMiddlewareB, Data>();
-}));
+    c.AddAsyncMiddlewareForChain<AsyncMiddlewareB, Data>();
+});
 
 var pipeline = container.Resolve<IPipelineBuilder>();
 ``` 
@@ -65,13 +65,13 @@ The [Jal.Locator.LightInject](https://www.nuget.org/packages/Jal.Locator.LightIn
 ```csharp
 var container = new ServiceContainer();
 
-container.RegisterFrom<ServiceLocatorCompositionRoot>();
+container.AddServiceLocator();
 
-container.RegisterChainOfResponsability(c=>
+container.AddChainOfResponsability(c=>
 {
-    c.RegisterMiddlewareForChain<MiddlewareA, Data>();
+    c.AddAsyncMiddlewareForChain<MiddlewareA, Data>();
 
-    c.RegisterMiddlewareForChain<MiddlewareB, Data>();
+    c.AddAsyncMiddlewareForChain<MiddlewareB, Data>();
 });
 
 var pipeline = container.GetInstance<IPipelineBuilder>();
