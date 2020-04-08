@@ -18,8 +18,6 @@ namespace Jal.ChainOfResponsability.Tests.Microsoft.Extensions.DependencyInjecti
 
             var container = new ServiceCollection();
 
-            container.AddServiceLocator();
-
             container.AddChainOfResponsability(c=>
             {
                 c.AddMiddlewareForChain<MiddlewareA, Data>();
@@ -43,8 +41,6 @@ namespace Jal.ChainOfResponsability.Tests.Microsoft.Extensions.DependencyInjecti
 
             var container = new ServiceCollection();
 
-            container.AddServiceLocator();
-
             container.AddChainOfResponsability();
 
             var provider = container.BuildServiceProvider();
@@ -60,8 +56,6 @@ namespace Jal.ChainOfResponsability.Tests.Microsoft.Extensions.DependencyInjecti
             var tests = new TestCases();
 
             var container = new ServiceCollection();
-
-            container.AddServiceLocator();
 
             container.AddChainOfResponsability(c=>
             {
@@ -85,8 +79,6 @@ namespace Jal.ChainOfResponsability.Tests.Microsoft.Extensions.DependencyInjecti
             var tests = new TestCases();
 
             var container = new ServiceCollection();
-
-            container.AddServiceLocator();
 
             container.AddChainOfResponsability();
 

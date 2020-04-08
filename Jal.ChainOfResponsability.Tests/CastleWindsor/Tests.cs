@@ -21,10 +21,6 @@ namespace Jal.ChainOfResponsability.Tests.CastleWindsor
 
             var container = new WindsorContainer();
 
-            container.Kernel.Resolver.AddSubResolver(new CollectionResolver(container.Kernel));
-
-            container.AddServiceLocator();
-
             container.AddChainOfResponsability(c=>
             {
                 c.AddMiddlewareForChain<MiddlewareA, Data>();
@@ -46,10 +42,6 @@ namespace Jal.ChainOfResponsability.Tests.CastleWindsor
 
             var container = new WindsorContainer();
 
-            container.Kernel.Resolver.AddSubResolver(new CollectionResolver(container.Kernel));
-
-            container.AddServiceLocator();
-
             container.AddChainOfResponsability();
 
             IPipelineBuilder pipeline = container.Resolve<IPipelineBuilder>();
@@ -63,10 +55,6 @@ namespace Jal.ChainOfResponsability.Tests.CastleWindsor
             var tests = new TestCases();
 
             var container = new WindsorContainer();
-
-            container.Kernel.Resolver.AddSubResolver(new CollectionResolver(container.Kernel));
-
-            container.AddServiceLocator();
 
             container.AddChainOfResponsability(c =>
             {
@@ -89,10 +77,6 @@ namespace Jal.ChainOfResponsability.Tests.CastleWindsor
 
             var container = new WindsorContainer();
 
-            container.Kernel.Resolver.AddSubResolver(new CollectionResolver(container.Kernel));
-
-            container.AddServiceLocator();
-
             container.AddChainOfResponsability();
 
             IPipelineBuilder pipeline = container.Resolve<IPipelineBuilder>();
@@ -106,10 +90,6 @@ namespace Jal.ChainOfResponsability.Tests.CastleWindsor
             var tests = new TestCases();
 
             var container = new WindsorContainer();
-
-            container.Kernel.Resolver.AddSubResolver(new CollectionResolver(container.Kernel));
-
-            container.AddServiceLocator();
 
             container.AddChainOfResponsability(c =>
             {

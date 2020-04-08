@@ -19,8 +19,6 @@ namespace Jal.ChainOfResponsability.Tests.LightInject
 
             var container = new ServiceContainer();
 
-            container.AddServiceLocator();
-
             container.AddChainOfResponsability(c=>
             {
                 c.AddMiddlewareForChain<MiddlewareA, Data>();
@@ -42,8 +40,6 @@ namespace Jal.ChainOfResponsability.Tests.LightInject
 
             var container = new ServiceContainer();
 
-            container.AddServiceLocator();
-
             container.AddChainOfResponsability();
 
             IPipelineBuilder pipeline = container.GetInstance<IPipelineBuilder>();
@@ -57,8 +53,6 @@ namespace Jal.ChainOfResponsability.Tests.LightInject
             var tests = new TestCases();
 
             var container = new ServiceContainer();
-
-            container.AddServiceLocator();
 
             container.AddChainOfResponsability(c =>
             {
@@ -80,8 +74,6 @@ namespace Jal.ChainOfResponsability.Tests.LightInject
             var tests = new TestCases();
 
             var container = new ServiceContainer();
-
-            container.AddServiceLocator();
 
             container.AddChainOfResponsability();
 

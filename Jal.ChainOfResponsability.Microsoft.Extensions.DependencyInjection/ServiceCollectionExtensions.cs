@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Jal.Locator.Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 
 namespace Jal.ChainOfResponsability.Microsoft.Extensions.DependencyInjection
@@ -7,11 +9,13 @@ namespace Jal.ChainOfResponsability.Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddChainOfResponsability(this IServiceCollection servicecollection, Action<IServiceCollection> action = null)
         {
-            servicecollection.AddSingleton<IPipeline, Pipeline>();
+            servicecollection.AddServiceLocator();
 
-            servicecollection.AddSingleton<IPipelineBuilder, PipelineBuilder>();
+            servicecollection.TryAddSingleton<IPipeline, Pipeline>();
 
-            servicecollection.AddSingleton<IMiddlewareFactory, MiddlewareFactory>();
+            servicecollection.TryAddSingleton<IPipelineBuilder, PipelineBuilder>();
+
+            servicecollection.TryAddSingleton<IMiddlewareFactory, MiddlewareFactory>();
 
             if (action != null)
             {

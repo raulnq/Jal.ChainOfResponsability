@@ -1,6 +1,7 @@
 ﻿using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
+using Jal.Locator.CastleWindsor;
 using System;
 
 namespace Jal.ChainOfResponsability.Installer
@@ -16,11 +17,22 @@ namespace Jal.ChainOfResponsability.Installer
 
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<IMiddlewareFactory>().ImplementedBy<MiddlewareFactory>().Named(typeof(MiddlewareFactory).FullName).LifestyleSingleton());
+            container.AddServiceLocator();
 
-            container.Register(Component.For<IPipelineBuilder>().ImplementedBy<PipelineBuilder>().Named(typeof(PipelineBuilder).FullName).LifestyleSingleton());
+            if (!container.Kernel.HasComponent(typeof(IMiddlewareFactory)))
+            {
+                container.Register(Component.For<IMiddlewareFactory>().ImplementedBy<MiddlewareFactory>().Named(typeof(MiddlewareFactory).FullName).LifestyleSingleton());
+            }
 
-            container.Register(Component.For<IPipeline>().ImplementedBy<Pipeline>().Named(typeof(Pipeline).FullName).LifestyleSingleton());
+            if (!container.Kernel.HasComponent(typeof(IPipelineBuilder)))
+            {
+                container.Register(Component.For<IPipelineBuilder>().ImplementedBy<PipelineBuilder>().Named(typeof(PipelineBuilder).FullName).LifestyleSingleton());
+            }
+
+            if (!container.Kernel.HasComponent(typeof(IPipeline)))
+            {
+                container.Register(Component.For<IPipeline>().ImplementedBy<Pipeline>().Named(typeof(Pipeline).FullName).LifestyleSingleton());
+            }
 
             if (_action != null)
             {
