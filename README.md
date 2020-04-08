@@ -59,9 +59,9 @@ var container = new ServiceContainer();
 
 container.AddChainOfResponsability(c=>
 {
-    c.AddAsyncMiddlewareForChain<MiddlewareA, Data>();
+    c.AddAsyncMiddlewareForChain<AsyncMiddlewareA, Data>();
 
-    c.AddAsyncMiddlewareForChain<MiddlewareB, Data>();
+    c.AddAsyncMiddlewareForChain<AsyncMiddlewareB, Data>();
 });
 
 var pipeline = container.GetInstance<IPipelineBuilder>();
