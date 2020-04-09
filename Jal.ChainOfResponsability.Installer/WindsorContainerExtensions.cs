@@ -22,5 +22,10 @@ namespace Jal.ChainOfResponsability.Installer
         {
             container.Install(new ChainOfResponsabilityInstaller(action));
         }
+
+        public static IPipelineBuilder GetChainOfResponsability(this IWindsorContainer container)
+        {
+            return container.Resolve<IPipelineBuilder>();
+        }
     }
 }

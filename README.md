@@ -50,7 +50,7 @@ container.AddChainOfResponsability(c =>
     c.AddAsyncMiddlewareForChain<AsyncMiddlewareB, Data>();
 });
 
-var pipeline = container.Resolve<IPipelineBuilder>();
+var pipeline = container.GetChainOfResponsability();
 ``` 
 ### LightInject [![NuGet](https://img.shields.io/nuget/v/Jal.ChainOfResponsability.LightInject.Installer.svg)](https://www.nuget.org/packages/Jal.ChainOfResponsability.LightInject.Installer)
 
@@ -64,7 +64,7 @@ container.AddChainOfResponsability(c=>
     c.AddAsyncMiddlewareForChain<AsyncMiddlewareB, Data>();
 });
 
-var pipeline = container.GetInstance<IPipelineBuilder>();
+var pipeline = container.GetChainOfResponsability();
 ``` 
 
 ### Microsoft.Extensions.DependencyInjection [![NuGet](https://img.shields.io/nuget/v/Jal.ChainOfResponsability.Microsoft.Extensions.DependencyInjection.svg)](https://www.nuget.org/packages/Jal.ChainOfResponsability.Microsoft.Extensions.DependencyInjection)
@@ -81,5 +81,5 @@ container.AddChainOfResponsability(c=>
 
 var provider = container.BuildServiceProvider();
 
-var pipeline = provider.GetService<IPipelineBuilder>();
+var pipeline = provider.GetChainOfResponsability();
 ``` 

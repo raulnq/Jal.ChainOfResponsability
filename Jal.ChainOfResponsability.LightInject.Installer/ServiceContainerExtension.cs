@@ -17,6 +17,11 @@ namespace Jal.ChainOfResponsability.LightInject.Installer
             container.Register<IAsyncMiddleware<TData>, TImplementation>(typeof(TImplementation).FullName, new PerContainerLifetime());
         }
 
+        public static IPipelineBuilder GetChainOfResponsability(this IServiceContainer container)
+        {
+            return container.GetInstance<IPipelineBuilder>();
+        }
+
         public static void AddChainOfResponsability(this IServiceContainer container, Action<IServiceContainer> action = null)
         {
             container.AddServiceLocator();

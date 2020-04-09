@@ -28,7 +28,7 @@ namespace Jal.ChainOfResponsability.Tests.LightInject
                 c.AddMiddlewareForChain<MiddlewareC, Data>();
             });
 
-            IPipelineBuilder pipeline = container.GetInstance<IPipelineBuilder>();
+            IPipelineBuilder pipeline = container.GetChainOfResponsability();
 
             tests.Run_WithStrongTypedMiddleware_ShouldBeExecuted(pipeline);
         }
@@ -42,7 +42,7 @@ namespace Jal.ChainOfResponsability.Tests.LightInject
 
             container.AddChainOfResponsability();
 
-            IPipelineBuilder pipeline = container.GetInstance<IPipelineBuilder>();
+            IPipelineBuilder pipeline = container.GetChainOfResponsability();
 
             tests.Run_WithAnonymousMiddleware_ShouldBeExecuted(pipeline);
         }
@@ -63,7 +63,7 @@ namespace Jal.ChainOfResponsability.Tests.LightInject
                 c.AddAsyncMiddlewareForChain<AsyncMiddlewareC, Data>();
             });
 
-            IPipelineBuilder pipeline = container.GetInstance<IPipelineBuilder>();
+            IPipelineBuilder pipeline = container.GetChainOfResponsability();
 
             await tests.RunAsync_WithStrongTypedMiddleware_ShouldBeExecuted(pipeline);
         }
@@ -77,7 +77,7 @@ namespace Jal.ChainOfResponsability.Tests.LightInject
 
             container.AddChainOfResponsability();
 
-            IPipelineBuilder pipeline = container.GetInstance<IPipelineBuilder>();
+            IPipelineBuilder pipeline = container.GetChainOfResponsability();
 
             await tests.RunAsync_WithAnonymousMiddleware_ShouldBeExecuted(pipeline);
         }

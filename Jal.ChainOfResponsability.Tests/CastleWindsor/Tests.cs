@@ -1,10 +1,7 @@
-using System;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Jal.ChainOfResponsability.LightInject.Installer;
 using Castle.Windsor;
-using Castle.MicroKernel.Resolvers.SpecializedResolvers;
-using Jal.Locator.CastleWindsor;
 using Jal.ChainOfResponsability.Installer;
 using Jal.ChainOfResponsability.Tests.Impl;
 using Jal.ChainOfResponsability.Tests.Model;
@@ -30,7 +27,7 @@ namespace Jal.ChainOfResponsability.Tests.CastleWindsor
                 c.AddMiddlewareForChain<MiddlewareC, Data>();
             });
 
-            IPipelineBuilder pipeline = container.Resolve<IPipelineBuilder>();
+            IPipelineBuilder pipeline = container.GetChainOfResponsability();
 
             tests.Run_WithStrongTypedMiddleware_ShouldBeExecuted(pipeline);
         }
@@ -44,7 +41,7 @@ namespace Jal.ChainOfResponsability.Tests.CastleWindsor
 
             container.AddChainOfResponsability();
 
-            IPipelineBuilder pipeline = container.Resolve<IPipelineBuilder>();
+            IPipelineBuilder pipeline = container.GetChainOfResponsability();
 
             tests.Run_WithAnonymousMiddleware_ShouldBeExecuted(pipeline);
         }
@@ -65,7 +62,7 @@ namespace Jal.ChainOfResponsability.Tests.CastleWindsor
                 c.AddAsyncMiddlewareForChain<AsyncMiddlewareC, Data>();
             });
 
-            IPipelineBuilder pipeline = container.Resolve<IPipelineBuilder>();
+            IPipelineBuilder pipeline = container.GetChainOfResponsability();
 
             await tests.RunAsync_WithStrongTypedMiddleware_ShouldBeExecuted(pipeline);
         }
@@ -79,7 +76,7 @@ namespace Jal.ChainOfResponsability.Tests.CastleWindsor
 
             container.AddChainOfResponsability();
 
-            IPipelineBuilder pipeline = container.Resolve<IPipelineBuilder>();
+            IPipelineBuilder pipeline = container.GetChainOfResponsability();
 
             await tests.RunAsync_WithAnonymousMiddleware_ShouldBeExecuted(pipeline);
         }
@@ -98,7 +95,7 @@ namespace Jal.ChainOfResponsability.Tests.CastleWindsor
                 c.AddAsyncMiddlewareForChain<AsyncMiddlewareE, Data>();
             });
 
-            IPipelineBuilder pipeline = container.Resolve<IPipelineBuilder>();
+            IPipelineBuilder pipeline = container.GetChainOfResponsability();
 
             await tests.RunAsync_WithCancellationToken_ShouldBeThrowException(pipeline);
         }

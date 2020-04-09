@@ -3,7 +3,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Jal.ChainOfResponsability.Tests.Impl;
 using Jal.ChainOfResponsability.Tests.Model;
 using Microsoft.Extensions.DependencyInjection;
-using Jal.Locator.Microsoft.Extensions.DependencyInjection;
 using Jal.ChainOfResponsability.Microsoft.Extensions.DependencyInjection;
 
 namespace Jal.ChainOfResponsability.Tests.Microsoft.Extensions.DependencyInjection
@@ -29,7 +28,7 @@ namespace Jal.ChainOfResponsability.Tests.Microsoft.Extensions.DependencyInjecti
 
             var provider = container.BuildServiceProvider();
 
-            IPipelineBuilder pipeline = provider.GetService<IPipelineBuilder>();
+            IPipelineBuilder pipeline = provider.GetChainOfResponsability();
 
             tests.Run_WithStrongTypedMiddleware_ShouldBeExecuted(pipeline);
         }
@@ -45,7 +44,7 @@ namespace Jal.ChainOfResponsability.Tests.Microsoft.Extensions.DependencyInjecti
 
             var provider = container.BuildServiceProvider();
 
-            IPipelineBuilder pipeline = provider.GetService<IPipelineBuilder>();
+            IPipelineBuilder pipeline = provider.GetChainOfResponsability();
 
             tests.Run_WithAnonymousMiddleware_ShouldBeExecuted(pipeline);
         }
@@ -68,7 +67,7 @@ namespace Jal.ChainOfResponsability.Tests.Microsoft.Extensions.DependencyInjecti
 
             var provider = container.BuildServiceProvider();
 
-            IPipelineBuilder pipeline = provider.GetService<IPipelineBuilder>();
+            IPipelineBuilder pipeline = provider.GetChainOfResponsability();
 
             await tests.RunAsync_WithStrongTypedMiddleware_ShouldBeExecuted(pipeline);
         }
@@ -84,7 +83,7 @@ namespace Jal.ChainOfResponsability.Tests.Microsoft.Extensions.DependencyInjecti
 
             var provider = container.BuildServiceProvider();
 
-            IPipelineBuilder pipeline = provider.GetService<IPipelineBuilder>();
+            IPipelineBuilder pipeline = provider.GetChainOfResponsability();
 
             await tests.RunAsync_WithAnonymousMiddleware_ShouldBeExecuted(pipeline);
         }
