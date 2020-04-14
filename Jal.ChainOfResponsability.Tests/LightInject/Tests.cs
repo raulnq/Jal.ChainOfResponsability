@@ -21,11 +21,11 @@ namespace Jal.ChainOfResponsability.Tests.LightInject
 
             container.AddChainOfResponsability(c=>
             {
-                c.AddMiddlewareForChain<MiddlewareA, Data>();
+                c.AddMiddleware<MiddlewareA, Data>();
 
-                c.AddMiddlewareForChain<MiddlewareB, Data>();
+                c.AddMiddleware<MiddlewareB, Data>();
 
-                c.AddMiddlewareForChain<MiddlewareC, Data>();
+                c.AddMiddleware<MiddlewareC, Data>();
             });
 
             IPipelineBuilder pipeline = container.GetChainOfResponsability();
@@ -56,11 +56,11 @@ namespace Jal.ChainOfResponsability.Tests.LightInject
 
             container.AddChainOfResponsability(c =>
             {
-                c.AddAsyncMiddlewareForChain<AsyncMiddlewareA, Data>();
+                c.AddAsyncMiddleware<AsyncMiddlewareA, Data>();
 
-                c.AddAsyncMiddlewareForChain<AsyncMiddlewareB, Data>();
+                c.AddAsyncMiddleware<AsyncMiddlewareB, Data>();
 
-                c.AddAsyncMiddlewareForChain<AsyncMiddlewareC, Data>();
+                c.AddAsyncMiddleware<AsyncMiddlewareC, Data>();
             });
 
             IPipelineBuilder pipeline = container.GetChainOfResponsability();

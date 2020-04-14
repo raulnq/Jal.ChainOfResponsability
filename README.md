@@ -45,9 +45,9 @@ var container = new WindsorContainer();
 
 container.AddChainOfResponsability(c =>
 {
-    c.AddAsyncMiddlewareForChain<AsyncMiddlewareA, Data>();
+    c.AddAsyncMiddleware<AsyncMiddlewareA, Data>();
 
-    c.AddAsyncMiddlewareForChain<AsyncMiddlewareB, Data>();
+    c.AddAsyncMiddleware<AsyncMiddlewareB, Data>();
 });
 
 var pipeline = container.GetChainOfResponsability();
@@ -59,9 +59,9 @@ var container = new ServiceContainer();
 
 container.AddChainOfResponsability(c=>
 {
-    c.AddAsyncMiddlewareForChain<AsyncMiddlewareA, Data>();
+    c.AddAsyncMiddleware<AsyncMiddlewareA, Data>();
 
-    c.AddAsyncMiddlewareForChain<AsyncMiddlewareB, Data>();
+    c.AddAsyncMiddleware<AsyncMiddlewareB, Data>();
 });
 
 var pipeline = container.GetChainOfResponsability();
@@ -74,9 +74,9 @@ var container = new ServiceCollection();
 
 container.AddChainOfResponsability(c=>
 {
-    c.AddAsyncMiddlewareForChain<AsyncMiddlewareA, Data>();
+    c.AddAsyncMiddleware<AsyncMiddlewareA, Data>();
 
-    c.AddAsyncMiddlewareForChain<AsyncMiddlewareB, Data>();
+    c.AddAsyncMiddleware<AsyncMiddlewareB, Data>();
 });
 
 var provider = container.BuildServiceProvider();
