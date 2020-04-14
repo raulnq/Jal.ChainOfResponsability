@@ -6,7 +6,7 @@ namespace Jal.ChainOfResponsability.Installer
 {
     public static class WindsorContainerExtensions
     {
-        public static void AddChainOfResponsability(this IWindsorContainer container, Action<IMiddlewareBuilder> action = null)
+        public static void AddChainOfResponsability(this IWindsorContainer container, Action<IChainOfResponsabilityBuilder> action = null)
         {
             container.Install(new ChainOfResponsabilityInstaller(action));
         }

@@ -8,9 +8,9 @@ namespace Jal.ChainOfResponsability.Installer
 {
     public class ChainOfResponsabilityInstaller : IWindsorInstaller
     {
-        private readonly Action<IMiddlewareBuilder> _action;
+        private readonly Action<IChainOfResponsabilityBuilder> _action;
 
-        public ChainOfResponsabilityInstaller(Action<IMiddlewareBuilder> action = null)
+        public ChainOfResponsabilityInstaller(Action<IChainOfResponsabilityBuilder> action = null)
         {
             _action = action;
         }
@@ -36,7 +36,7 @@ namespace Jal.ChainOfResponsability.Installer
 
             if (_action != null)
             {
-                _action(new MiddlewareBuilder(container));
+                _action(new ChainOfResponsabilityBuilder(container));
             }
         }
     }

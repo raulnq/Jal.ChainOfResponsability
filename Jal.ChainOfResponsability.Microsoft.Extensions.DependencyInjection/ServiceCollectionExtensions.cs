@@ -7,7 +7,7 @@ namespace Jal.ChainOfResponsability.Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddChainOfResponsability(this IServiceCollection servicecollection, Action<IMiddlewareBuilder> action = null)
+        public static IServiceCollection AddChainOfResponsability(this IServiceCollection servicecollection, Action<IChainOfResponsabilityBuilder> action = null)
         {
             servicecollection.AddServiceLocator();
 
@@ -19,7 +19,7 @@ namespace Jal.ChainOfResponsability.Microsoft.Extensions.DependencyInjection
 
             if (action != null)
             {
-                action(new MiddlewareBuilder(servicecollection));
+                action(new ChainOfResponsabilityBuilder(servicecollection));
             }
 
             return servicecollection;

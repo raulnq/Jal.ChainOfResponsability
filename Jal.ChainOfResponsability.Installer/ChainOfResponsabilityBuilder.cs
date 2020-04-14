@@ -3,15 +3,15 @@ using Castle.Windsor;
 
 namespace Jal.ChainOfResponsability.Installer
 {
-    public class MiddlewareBuilder : IMiddlewareBuilder
+    public class ChainOfResponsabilityBuilder : IChainOfResponsabilityBuilder
     {
         private readonly IWindsorContainer _container;
-        public MiddlewareBuilder(IWindsorContainer container)
+        public ChainOfResponsabilityBuilder(IWindsorContainer container)
         {
             _container = container;
         }
 
-        public IMiddlewareBuilder AddAsyncMiddleware<TImplementation, TData>()
+        public IChainOfResponsabilityBuilder AddAsyncMiddleware<TImplementation, TData>()
              where TImplementation : class, IAsyncMiddleware<TData>
         {
             _container.Register(Component.For<IAsyncMiddleware<TData>>().ImplementedBy<TImplementation>().Named(typeof(TImplementation).FullName).LifestyleSingleton());
@@ -19,7 +19,7 @@ namespace Jal.ChainOfResponsability.Installer
             return this;
         }
 
-        public IMiddlewareBuilder AddMiddleware<TImplementation, TData>()
+        public IChainOfResponsabilityBuilder AddMiddleware<TImplementation, TData>()
             where TImplementation : class, IMiddleware<TData>
         {
             _container.Register(Component.For<IMiddleware<TData>>().ImplementedBy<TImplementation>().Named(typeof(TImplementation).FullName).LifestyleSingleton());

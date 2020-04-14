@@ -2,15 +2,15 @@
 
 namespace Jal.ChainOfResponsability.Microsoft.Extensions.DependencyInjection
 {
-    public class MiddlewareBuilder : IMiddlewareBuilder
+    public class ChainOfResponsabilityBuilder : IChainOfResponsabilityBuilder
     {
         private readonly IServiceCollection _servicecollection;
-        public MiddlewareBuilder(IServiceCollection servicecollection)
+        public ChainOfResponsabilityBuilder(IServiceCollection servicecollection)
         {
             _servicecollection = servicecollection;
         }
 
-        public IMiddlewareBuilder AddAsyncMiddleware<TImplementation, TData>()
+        public IChainOfResponsabilityBuilder AddAsyncMiddleware<TImplementation, TData>()
              where TImplementation : class, IAsyncMiddleware<TData>
         {
             _servicecollection.AddSingleton<IAsyncMiddleware<TData>, TImplementation>();
@@ -18,7 +18,7 @@ namespace Jal.ChainOfResponsability.Microsoft.Extensions.DependencyInjection
             return this;
         }
 
-        public IMiddlewareBuilder AddMiddleware<TImplementation, TData>()
+        public IChainOfResponsabilityBuilder AddMiddleware<TImplementation, TData>()
             where TImplementation : class, IMiddleware<TData>
         {
             _servicecollection.AddSingleton<IMiddleware<TData>, TImplementation>();

@@ -2,15 +2,15 @@
 
 namespace Jal.ChainOfResponsability.LightInject.Installer
 {
-    public class MiddlewareBuilder : IMiddlewareBuilder
+    public class ChainOfResponsabilityBuilder : IChainOfResponsabilityBuilder
     {
         private readonly IServiceContainer _container;
-        public MiddlewareBuilder(IServiceContainer container)
+        public ChainOfResponsabilityBuilder(IServiceContainer container)
         {
             _container = container;
         }
 
-        public IMiddlewareBuilder AddAsyncMiddleware<TImplementation, TData>()
+        public IChainOfResponsabilityBuilder AddAsyncMiddleware<TImplementation, TData>()
              where TImplementation : class, IAsyncMiddleware<TData>
         {
             _container.Register<IAsyncMiddleware<TData>, TImplementation>(typeof(TImplementation).FullName, new PerContainerLifetime());
@@ -18,7 +18,7 @@ namespace Jal.ChainOfResponsability.LightInject.Installer
             return this;
         }
 
-        public IMiddlewareBuilder AddMiddleware<TImplementation, TData>()
+        public IChainOfResponsabilityBuilder AddMiddleware<TImplementation, TData>()
             where TImplementation : class, IMiddleware<TData>
         {
             _container.Register<IMiddleware<TData>, TImplementation>(typeof(TImplementation).FullName, new PerContainerLifetime());

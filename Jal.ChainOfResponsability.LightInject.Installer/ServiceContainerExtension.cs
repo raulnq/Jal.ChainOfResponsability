@@ -12,7 +12,7 @@ namespace Jal.ChainOfResponsability.LightInject.Installer
             return container.GetInstance<IPipelineBuilder>();
         }
 
-        public static void AddChainOfResponsability(this IServiceContainer container, Action<IMiddlewareBuilder> action = null)
+        public static void AddChainOfResponsability(this IServiceContainer container, Action<IChainOfResponsabilityBuilder> action = null)
         {
             container.AddServiceLocator();
 
@@ -33,7 +33,7 @@ namespace Jal.ChainOfResponsability.LightInject.Installer
             
             if (action != null)
             {
-                action(new MiddlewareBuilder(container));
+                action(new ChainOfResponsabilityBuilder(container));
             }
         }
     }
